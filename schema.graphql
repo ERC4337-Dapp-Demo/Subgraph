@@ -1,0 +1,28 @@
+type Currency @entity {
+  id: ID!
+  erc20Address: Bytes!
+  url: String!
+  name: String!
+  symbol: String!
+  decimal: Int!
+  permission: Boolean!
+}
+
+enum ListingStatus {
+  LISTING
+  BOUGHT
+  CANCELED
+}
+
+type Marketplace @entity {
+  id: ID!
+  nftAddress: Bytes!
+  tokenId: BigInt!
+  tokenUri: String!
+  erc20Address: Bytes!
+  price: BigInt!
+  quantity: BigInt!
+  lister: Bytes!
+  buyer: Bytes!
+  status: ListingStatus!
+}
