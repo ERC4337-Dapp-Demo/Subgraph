@@ -5,7 +5,12 @@ import {
   UpdatePriceItem,
   SaleItem,
 } from "../generated/Marketplace/Marketplace";
-import { fetchNftTokenURI, ADDRESS_ZERO } from "./helper";
+import {
+  fetchNftTokenURI,
+  ADDRESS_ZERO,
+  fetchNftName,
+  fetchNftType,
+} from "./helper";
 import { Marketplace } from "../generated/schema";
 import { Address } from "@graphprotocol/graph-ts";
 
@@ -24,6 +29,8 @@ export function handleListingItem(event: ListingItem): void {
   marketplace.buyer = Address.fromHexString(ADDRESS_ZERO);
   marketplace.quantity = event.params.quantity;
   marketplace.erc20Address = event.params.contractERC20;
+  marketplace.name = fetchNftName(event.params.contractNFT);
+  marketplace.contractType = fetchNftType(event.params.contractNFT);
   marketplace.save();
 }
 
@@ -42,6 +49,8 @@ export function handleListingBulkItem(event: ListingBulkItem): void {
   marketplace.buyer = Address.fromHexString(ADDRESS_ZERO);
   marketplace.quantity = event.params.quantity;
   marketplace.erc20Address = event.params.contractERC20;
+  marketplace.name = fetchNftName(event.params.contractNFT);
+  marketplace.contractType = fetchNftType(event.params.contractNFT);
   marketplace.save();
 }
 

@@ -4,6 +4,7 @@ import {
   BigDecimal,
   Address,
   ethereum,
+  Bytes,
 } from "@graphprotocol/graph-ts";
 import { ERC20 } from "../generated/Currency/ERC20";
 import { ERC721 } from "../generated/Marketplace/ERC721";
@@ -54,4 +55,33 @@ export function fetchNftTokenURI(nftAddress: Address, tokenId: BigInt): string {
     tokenURIValue = tokenURIResult.value;
   }
   return tokenURIValue;
+}
+
+export function fetchNftName(nftAddress: Address): string {
+  let contract = ERC721.bind(nftAddress);
+  let name = "";
+  let result = contract.try_name();
+  if (!result.reverted) {
+    name = result.value;
+  }
+  return name;
+}
+
+export function fetchNftType(nftAddress: Address): string {
+  let contract = ERC721.bind(nftAddress);
+  let value = "UNKNOWN";
+  let result = contract.try_supportsInterface(
+    Bytes.fromHexString("0x80ac58cd")
+  );
+  if (!result.reverted) {
+    if (result.value == true) {
+      value = "ERC721";
+    } else {
+      let nextResult = contract.try_supportsInterface(
+        Bytes.fromHexString("0xd9b67a26")
+      );
+      value = nextResult.value ? "ERC1155" : "UNKNOWN";
+    }
+  }
+  return value;
 }

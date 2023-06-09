@@ -14,8 +14,15 @@ enum ListingStatus {
   CANCELED
 }
 
+enum ContractType {
+  ERC721
+  ERC1155
+  UNKNOWN
+}
+
 type Marketplace @entity {
   id: ID!
+  name: String!
   nftAddress: Bytes!
   tokenId: BigInt!
   tokenUri: String!
@@ -25,4 +32,5 @@ type Marketplace @entity {
   lister: Bytes!
   buyer: Bytes!
   status: ListingStatus!
+  contractType: ContractType!
 }

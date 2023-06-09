@@ -170,6 +170,19 @@ export class Marketplace extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get name(): string {
+    let value = this.get("name");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
   get nftAddress(): Bytes {
     let value = this.get("nftAddress");
     if (!value || value.kind == ValueKind.NULL) {
@@ -285,5 +298,18 @@ export class Marketplace extends Entity {
 
   set status(value: string) {
     this.set("status", Value.fromString(value));
+  }
+
+  get contractType(): string {
+    let value = this.get("contractType");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set contractType(value: string) {
+    this.set("contractType", Value.fromString(value));
   }
 }
