@@ -10,9 +10,7 @@ import { Marketplace } from "../generated/schema";
 import { Address } from "@graphprotocol/graph-ts";
 
 export function handleListingItem(event: ListingItem): void {
-  let id = `${event.params.contractNFT}-${
-    event.params.tokenId
-  }-${event.params.marketId.toString()}`;
+  let id = `${event.params.contractNFT.toHexString()}-${event.params.tokenId.toString()}-${event.params.marketId.toString()}`;
   let marketplace = new Marketplace(id);
   marketplace.nftAddress = event.params.contractNFT;
   marketplace.tokenId = event.params.tokenId;
@@ -30,9 +28,7 @@ export function handleListingItem(event: ListingItem): void {
 }
 
 export function handleListingBulkItem(event: ListingBulkItem): void {
-  let id = `${event.params.contractNFT}-${
-    event.params.tokenId
-  }-${event.params.marketId.toString()}`;
+  let id = `${event.params.contractNFT.toHexString()}-${event.params.tokenId.toString()}-${event.params.marketId.toString()}`;
   let marketplace = new Marketplace(id);
   marketplace.nftAddress = event.params.contractNFT;
   marketplace.tokenId = event.params.tokenId;
@@ -50,9 +46,7 @@ export function handleListingBulkItem(event: ListingBulkItem): void {
 }
 
 export function handleCancelListing(event: CancelListing): void {
-  let id = `${event.params.contractNFT}-${
-    event.params.tokenId
-  }-${event.params.marketId.toString()}`;
+  let id = `${event.params.contractNFT.toHexString()}-${event.params.tokenId.toString()}-${event.params.marketId.toString()}`;
   let marketplace = Marketplace.load(id);
   if (marketplace == null) {
     return;
@@ -62,9 +56,7 @@ export function handleCancelListing(event: CancelListing): void {
 }
 
 export function handleSaleItem(event: SaleItem): void {
-  let id = `${event.params.contractNFT}-${
-    event.params.tokenId
-  }-${event.params.marketId.toString()}`;
+  let id = `${event.params.contractNFT.toHexString()}-${event.params.tokenId.toString()}-${event.params.marketId.toString()}`;
   let marketplace = Marketplace.load(id);
   if (marketplace == null) {
     return;
@@ -75,9 +67,7 @@ export function handleSaleItem(event: SaleItem): void {
 }
 
 export function handleUpdatePriceItem(event: UpdatePriceItem): void {
-  let id = `${event.params.contractNFT}-${
-    event.params.tokenId
-  }-${event.params.marketId.toString()}`;
+  let id = `${event.params.contractNFT.toHexString()}-${event.params.tokenId.toString()}-${event.params.marketId.toString()}`;
   let marketplace = Marketplace.load(id);
   if (marketplace == null) {
     return;
